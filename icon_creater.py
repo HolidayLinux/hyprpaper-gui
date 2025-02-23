@@ -56,7 +56,6 @@ class ThumbnailCreater:
         return ''
 
     async def thumbnail_base64_mem(self) -> str:
-        print(self.__image_path)
         image = await create_cached_image_mem(self.__image_path)
         return image_to_base64(image)
 

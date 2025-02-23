@@ -1,11 +1,11 @@
-
 import flet as ft
 from pathlib import Path
 from icon_creater import get_files_in_directory
 from imagewrapper import ImageWrapper
+from progressbar import ProgressBar
 
 
-async def main(page: ft.Page):
+def main(page: ft.Page):
     wallpaper_directory = 'c:\\Users\\Holiday\\.dotfiles\\wallpapers\\Wallpaper-Bank'
     page.title = "HYPRGUIPAPER"
     page.theme_mode = ft.ThemeMode.DARK
@@ -14,7 +14,7 @@ async def main(page: ft.Page):
                     for image in get_files_in_directory(Path(wallpaper_directory))]
 
     page.add(ft.Row(controls=new_controls, wrap=True,
-             scroll=ft.ScrollMode.AUTO, expand=True))
+                    scroll=ft.ScrollMode.AUTO, expand=True))
 
 
 ft.app(target=main)
