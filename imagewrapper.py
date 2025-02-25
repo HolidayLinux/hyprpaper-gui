@@ -1,12 +1,13 @@
 from pathlib import Path
-from icon_creater import ThumbnailCreater
+
 import flet as ft
+
+from icon_creater import ThumbnailCreater
 
 
 class ImageWrapper(ft.Image):
-    def __init__(self, image_load_path: Path, run_task):
-        super().__init__(src='.\\assets\\images\\loading2.gif')
-        self.__page_worker = run_task
+    def __init__(self, image_load_path: Path):
+        super().__init__(src=".\\assets\\images\\loading.gif")
         self.__thumbnail_creater = ThumbnailCreater(image_load_path)
         self.__is_update = False
 
@@ -16,8 +17,10 @@ class ImageWrapper(ft.Image):
         self.update()
 
     @property
-    def is_update(self):
+    def is_update(self) -> bool:
         return self.__is_update
 
     def did_mount(self):
-        self.__page_worker(self.update_image)
+        if self.page != None:
+            self.page.run_thread(self.update_image)
+        # self.__page_worker(self.update_image)
