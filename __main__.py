@@ -25,26 +25,34 @@ def main(page: ft.Page):
     page.theme_mode = ft.ThemeMode.DARK
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     wallpaper_paths = get_files_in_directory(Path(wallpaper_directory))
-    old_controls = [
+    images = [
         ft.Image(src="./assets/images/loading2.gif")
-        for x in range(0, len(wallpaper_paths))
+        for _ in range(0, len(wallpaper_paths))
     ]
-
-    page.add(
-        ft.Row(controls=old_controls, wrap=True, scroll=ft.ScrollMode.AUTO, expand=True)
+    old_controls = [ft.TextButton(content=image) for image in images]
+    image_row = ft.Row(
+        controls=old_controls, wrap=True, scroll=ft.ScrollMode.AUTO, expand=True
     )
 
     async def feel_image(image: ft.Image, cached_wallpaper: Path):
         cached_image = await create_cached_image_mem(cached_wallpaper)
         image.src_base64 = image_to_base64(cached_image)
-        page.update()
+        print(f"end of work : {cached_wallpaper}")
+        if image.page != None:
+            image.page.update()
 
     async def create_cached_images():
         create_images = [
-            asyncio.create_task(feel_image(old_controls[x], image_path))
+            feel_image(images[x], image_path)
             for x, image_path in enumerate(wallpaper_paths)
         ]
-        return asyncio.gather(*create_images)
+
+        for coroutine in create_images:
+            await coroutine
+            page.update()
+        # await asyncio.gather(*create_images)
+
+    page.add(image_row)
 
     page.run_task(create_cached_images)
 
