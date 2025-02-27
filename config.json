@@ -1,4 +1,4 @@
 {
-	"wallpaper_directory":"/home/holiday/wallpapers/Wallpaper-Bank" 
+  "wallpaper_directory": "/home/holiday/wallpapers/Wallpaper-Bank",
+  "default_wallpaper": "./assets/images/loading2.gif"
 }
-
