@@ -10,8 +10,13 @@ def get_monitor():
     return monitor
 
 
-def new_hyprpaprc_config(image_path: str):
-    subprocess.run(["hyprctl", "hyprpaper", "preload", image_path])
-    subprocess.run(
-        ["hyprctl", "hyprpaper", "wallpaper", f"{get_monitor()},{image_path}"]
-    )
+def new_hyprpaprc_config(image_path: str, hyrppaper_config_path: str):
+    wallpaper = f"{get_monitor()},{image_path}"
+    subprocess.run(["hyprctl", "hyprpaper", f"preload {image_path}"])
+    subprocess.run(["hyprctl", "hyprpaper", f"wallpaper {wallpaper}"])
+    with open(hyrppaper_config_path, "r+") as hyprpaper_config:
+        hyprpaper_config.truncate()
+        hyprpaper_config.seek(0)
+        hyprpaper_config.writelines(
+            [f"preload = {image_path}", "\n", f"wallpaper = {wallpaper}"]
+        )

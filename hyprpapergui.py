@@ -20,7 +20,7 @@ def load_config(param: str):
 
 def set_wallpaper(e):
     image_path = str(e.control.image_path.absolute())
-    hyprctl.new_hyprpaprc_config(image_path)
+    hyprctl.new_hyprpaprc_config(image_path, load_config("hyprpaper_config_path"))
 
 
 def main(page: ft.Page):

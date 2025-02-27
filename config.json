@@ -1,4 +1,5 @@
 {
   "wallpaper_directory": "/home/holiday/wallpapers/Wallpaper-Bank",
-  "default_wallpaper": "./assets/images/loading2.gif"
+  "default_wallpaper": "./assets/images/loading2.gif",
+  "hyprpaper_config_path": "/home/holiday/.config/hypr/hyprpaper.conf"
 }
